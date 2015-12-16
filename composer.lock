@@ -4,9 +4,54 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "fcaf248f2ed934d961db2238b5a3ac8a",
-    "content-hash": "b294a830d4411fc4319af67d2e52b7ec",
+    "hash": "1691154579c707bab45e95c8a39fe1ea",
+    "content-hash": "71775de675c4b28ae92ae0140428b3df",
     "packages": [
+        {
+            "name": "basicit/lumen-vendor-publish",
+            "version": "1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/basicit/lumen-vendor-publish.git",
+                "reference": "ad2eecbd15eeb1395a12b37fbdb7f303c2569897"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/basicit/lumen-vendor-publish/zipball/ad2eecbd15eeb1395a12b37fbdb7f303c2569897",
+                "reference": "ad2eecbd15eeb1395a12b37fbdb7f303c2569897",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/console": "^5.0",
+                "illuminate/filesystem": "^5.0",
+                "illuminate/support": "^5.0",
+                "league/flysystem": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BasicIT\\LumenVendorPublish\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mario Basic",
+                    "email": "mario.basic@outlook.com"
+                }
+            ],
+            "description": "Vendor publish command for Lumen framework.",
+            "keywords": [
+                "command",
+                "lumen",
+                "publish",
+                "vendor"
+            ],
+            "time": "2015-07-01 20:33:15"
+        },
         {
             "name": "danielstjules/stringy",
             "version": "1.10.0",
@@ -990,6 +1035,60 @@
             "time": "2015-11-29 16:58:05"
         },
         {
+            "name": "illuminate/routing",
+            "version": "v5.1.25",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/illuminate/routing.git",
+                "reference": "9dfd4ba9be0943784f45b3e1634267c33fe53f42"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/illuminate/routing/zipball/9dfd4ba9be0943784f45b3e1634267c33fe53f42",
+                "reference": "9dfd4ba9be0943784f45b3e1634267c33fe53f42",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/container": "5.1.*",
+                "illuminate/contracts": "5.1.*",
+                "illuminate/http": "5.1.*",
+                "illuminate/pipeline": "5.1.*",
+                "illuminate/session": "5.1.*",
+                "illuminate/support": "5.1.*",
+                "php": ">=5.5.9",
+                "symfony/http-foundation": "2.7.*",
+                "symfony/http-kernel": "2.7.*",
+                "symfony/routing": "2.7.*"
+            },
+            "suggest": {
+                "illuminate/console": "Required to use the make commands (5.1.*)."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "5.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Illuminate\\Routing\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylorotwell@gmail.com"
+                }
+            ],
+            "description": "The Illuminate Routing package.",
+            "homepage": "http://laravel.com",
+            "time": "2015-11-30 08:33:55"
+        },
+        {
             "name": "illuminate/session",
             "version": "v5.1.25",
             "source": {
@@ -1322,6 +1421,153 @@
             "time": "2015-10-28 22:19:15"
         },
         {
+            "name": "league/flysystem",
+            "version": "1.0.15",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/flysystem.git",
+                "reference": "31525caf9e8772683672fefd8a1ca0c0736020f4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/31525caf9e8772683672fefd8a1ca0c0736020f4",
+                "reference": "31525caf9e8772683672fefd8a1ca0c0736020f4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "conflict": {
+                "league/flysystem-sftp": "<1.0.6"
+            },
+            "require-dev": {
+                "ext-fileinfo": "*",
+                "mockery/mockery": "~0.9",
+                "phpspec/phpspec": "^2.2",
+                "phpspec/prophecy-phpunit": "~1.0",
+                "phpunit/phpunit": "~4.1"
+            },
+            "suggest": {
+                "ext-fileinfo": "Required for MimeType",
+                "league/flysystem-aws-s3-v2": "Allows you to use S3 storage with AWS SDK v2",
+                "league/flysystem-aws-s3-v3": "Allows you to use S3 storage with AWS SDK v3",
+                "league/flysystem-azure": "Allows you to use Windows Azure Blob storage",
+                "league/flysystem-cached-adapter": "Flysystem adapter decorator for metadata caching",
+                "league/flysystem-copy": "Allows you to use Copy.com storage",
+                "league/flysystem-dropbox": "Allows you to use Dropbox storage",
+                "league/flysystem-eventable-filesystem": "Allows you to use EventableFilesystem",
+                "league/flysystem-rackspace": "Allows you to use Rackspace Cloud Files",
+                "league/flysystem-sftp": "Allows you to use SFTP server storage via phpseclib",
+                "league/flysystem-webdav": "Allows you to use WebDAV storage",
+                "league/flysystem-ziparchive": "Allows you to use ZipArchive adapter"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Flysystem\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Frank de Jonge",
+                    "email": "info@frenky.net"
+                }
+            ],
+            "description": "Filesystem abstraction: Many filesystems, one API.",
+            "keywords": [
+                "Cloud Files",
+                "WebDAV",
+                "abstraction",
+                "aws",
+                "cloud",
+                "copy.com",
+                "dropbox",
+                "file systems",
+                "files",
+                "filesystem",
+                "filesystems",
+                "ftp",
+                "rackspace",
+                "remote",
+                "s3",
+                "sftp",
+                "storage"
+            ],
+            "time": "2015-09-30 22:26:59"
+        },
+        {
+            "name": "league/fractal",
+            "version": "0.13.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/thephpleague/fractal.git",
+                "reference": "3caeefbad51bce7a06947321938128512f42346c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/thephpleague/fractal/zipball/3caeefbad51bce7a06947321938128512f42346c",
+                "reference": "3caeefbad51bce7a06947321938128512f42346c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "illuminate/contracts": "~5.0",
+                "mockery/mockery": "~0.9",
+                "pagerfanta/pagerfanta": "~1.0.0",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~1.5",
+                "zendframework/zend-paginator": "~2.3"
+            },
+            "suggest": {
+                "illuminate/pagination": "The Illuminate Pagination component.",
+                "pagerfanta/pagerfanta": "Pagerfanta Paginator",
+                "zendframework/zend-paginator": "Zend Framework Paginator"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.13-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "League\\Fractal\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Phil Sturgeon",
+                    "email": "me@philsturgeon.uk",
+                    "homepage": "http://philsturgeon.uk/",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Handle the output of complex data structures ready for API output.",
+            "homepage": "http://fractal.thephpleague.com/",
+            "keywords": [
+                "api",
+                "json",
+                "league",
+                "rest"
+            ],
+            "time": "2015-10-07 14:48:58"
+        },
+        {
             "name": "monolog/monolog",
             "version": "1.17.2",
             "source": {
@@ -1441,6 +1687,56 @@
                 "schedule"
             ],
             "time": "2015-01-11 23:07:46"
+        },
+        {
+            "name": "namshi/jose",
+            "version": "5.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/namshi/jose.git",
+                "reference": "8c7eba486f74c014ea1d8faedafe5109a31ea95b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/namshi/jose/zipball/8c7eba486f74c014ea1d8faedafe5109a31ea95b",
+                "reference": "8c7eba486f74c014ea1d8faedafe5109a31ea95b",
+                "shasum": ""
+            },
+            "require": {
+                "lib-openssl": "*",
+                "php": ">=5.3.3",
+                "phpseclib/phpseclib": "~0.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.5",
+                "satooshi/php-coveralls": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Namshi\\JOSE": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alessandro Nadalin",
+                    "email": "alessandro.nadalin@gmail.com"
+                }
+            ],
+            "description": "JSON Object Signing and Encryption library for PHP.",
+            "keywords": [
+                "JSON Web Signature",
+                "JSON Web Token",
+                "JWS",
+                "json",
+                "jwt",
+                "token"
+            ],
+            "time": "2015-06-29 05:41:44"
         },
         {
             "name": "nesbot/carbon",
@@ -1579,6 +1875,104 @@
                 "random"
             ],
             "time": "2015-12-10 14:48:13"
+        },
+        {
+            "name": "phpseclib/phpseclib",
+            "version": "0.3.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpseclib/phpseclib.git",
+                "reference": "d15bba1edcc7c89e09cc74c5d961317a8b947bf4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpseclib/phpseclib/zipball/d15bba1edcc7c89e09cc74c5d961317a8b947bf4",
+                "reference": "d15bba1edcc7c89e09cc74c5d961317a8b947bf4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.0.0"
+            },
+            "require-dev": {
+                "phing/phing": "~2.7",
+                "phpunit/phpunit": "~4.0",
+                "sami/sami": "~2.0",
+                "squizlabs/php_codesniffer": "~1.5"
+            },
+            "suggest": {
+                "ext-gmp": "Install the GMP (GNU Multiple Precision) extension in order to speed up arbitrary precision integer arithmetic operations.",
+                "ext-mcrypt": "Install the Mcrypt extension in order to speed up a wide variety of cryptographic operations.",
+                "pear-pear/PHP_Compat": "Install PHP_Compat to get phpseclib working on PHP < 4.3.3."
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Crypt": "phpseclib/",
+                    "File": "phpseclib/",
+                    "Math": "phpseclib/",
+                    "Net": "phpseclib/",
+                    "System": "phpseclib/"
+                },
+                "files": [
+                    "phpseclib/Crypt/Random.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "phpseclib/"
+            ],
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Wigginton",
+                    "email": "terrafrost@php.net",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Patrick Monnerat",
+                    "email": "pm@datasphere.ch",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Andreas Fischer",
+                    "email": "bantu@phpbb.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Hans-Jürgen Petrich",
+                    "email": "petrich@tronic-media.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Secure Communications Library - Pure-PHP implementations of RSA, AES, SSH2, SFTP, X.509 etc.",
+            "homepage": "http://phpseclib.sourceforge.net",
+            "keywords": [
+                "BigInteger",
+                "aes",
+                "asn.1",
+                "asn1",
+                "blowfish",
+                "crypto",
+                "cryptography",
+                "encryption",
+                "rsa",
+                "security",
+                "sftp",
+                "signature",
+                "signing",
+                "ssh",
+                "twofish",
+                "x.509",
+                "x509"
+            ],
+            "time": "2015-01-28 21:50:33"
         },
         {
             "name": "psr/log",
@@ -2085,6 +2479,79 @@
             "time": "2015-11-19 16:11:24"
         },
         {
+            "name": "symfony/routing",
+            "version": "v2.7.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/routing.git",
+                "reference": "7450f6196711b124fb8b04a12286d01a0401ddfe"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/7450f6196711b124fb8b04a12286d01a0401ddfe",
+                "reference": "7450f6196711b124fb8b04a12286d01a0401ddfe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "conflict": {
+                "symfony/config": "<2.7"
+            },
+            "require-dev": {
+                "doctrine/annotations": "~1.0",
+                "doctrine/common": "~2.2",
+                "psr/log": "~1.0",
+                "symfony/config": "~2.7",
+                "symfony/expression-language": "~2.4",
+                "symfony/http-foundation": "~2.3",
+                "symfony/yaml": "~2.0,>=2.0.5"
+            },
+            "suggest": {
+                "doctrine/annotations": "For using the annotation loader",
+                "symfony/config": "For using the all-in-one router or any loader",
+                "symfony/expression-language": "For using expression matching",
+                "symfony/yaml": "For using the YAML loader"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.7-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Routing\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Routing Component",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "router",
+                "routing",
+                "uri",
+                "url"
+            ],
+            "time": "2015-11-18 13:41:01"
+        },
+        {
             "name": "symfony/security-core",
             "version": "v2.7.7",
             "source": {
@@ -2269,6 +2736,69 @@
                 "dump"
             ],
             "time": "2015-11-18 13:41:01"
+        },
+        {
+            "name": "tymon/jwt-auth",
+            "version": "0.5.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tymondesigns/jwt-auth.git",
+                "reference": "f70842d94a548f1457114dd57b6c0b9bf94ba13c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tymondesigns/jwt-auth/zipball/f70842d94a548f1457114dd57b6c0b9bf94ba13c",
+                "reference": "f70842d94a548f1457114dd57b6c0b9bf94ba13c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "~5.0",
+                "illuminate/support": "~5.0",
+                "namshi/jose": "5.0.*",
+                "nesbot/carbon": "~1.0",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "illuminate/auth": "~5.0",
+                "illuminate/console": "~5.0",
+                "illuminate/database": "~5.0",
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.5-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tymon\\JWTAuth\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sean Tymon",
+                    "email": "tymon148@gmail.com",
+                    "homepage": "http://tymondesigns.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "JSON Web Token Authentication for Laravel 4 and 5",
+            "homepage": "https://github.com/tymondesigns/jwt-auth",
+            "keywords": [
+                "Authentication",
+                "JSON Web Token",
+                "auth",
+                "jwt",
+                "laravel",
+                "tymon"
+            ],
+            "time": "2015-11-24 20:02:19"
         },
         {
             "name": "vlucas/phpdotenv",
