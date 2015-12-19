@@ -22,7 +22,7 @@ $app->group(['namespace' => 'Begin\Http\Controllers\Api\v1',
 {	
 	$app->get('validate_token', 'AuthController@validateToken');
 	$app->get('tasks', 'TasksController@index');
-
+	$app->get('tasks/{task}', 'TasksController@show');
 });
 
 
