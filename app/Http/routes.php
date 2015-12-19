@@ -21,6 +21,8 @@ $app->group(['namespace' => 'Begin\Http\Controllers\Api\v1',
 			 'prefix' => 'api/v1', 'middleware' => 'jwt.auth'], function ($app)
 {	
 	$app->get('validate_token', 'AuthController@validateToken');
+	$app->get('tasks', 'TasksController@index');
+
 });
 
 
