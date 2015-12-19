@@ -11,6 +11,12 @@
 |
 */
 
-$app->get('/', function () use ($app) {
-    return $app->welcome();
+$app->group(['namespace' => 'Begin\Http\Controllers\Api\v1','prefix' => 'api/v1'], function ($app)
+{
+	$app->post('register','AuthController@postRegister');
 });
+
+
+
+
+
