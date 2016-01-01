@@ -11,6 +11,22 @@ var elixir = require('laravel-elixir');
  |
  */
 
+require('laravel-elixir-vueify');
+
+var paths = {
+	'bootstrap': './vendor/bower_components/bootstrap/',
+    'bootswatch': './vendor/bower_components/bootstrap-theme-bootswatch-flatly/'
+}
+
 elixir(function(mix) {
-    mix.sass('app.scss');
+	
+	mix.styles([
+        paths.bootswatch + 'css/bootstrap.min.css',
+    ], 'public/css/app.css', './');
+
+    mix.copy(paths.bootstrap + 'fonts/**', 'public/fonts');
+
+    mix.version('public/css/app.css');
+
+    mix.browserify('bootstrap.js', 'public/js/app.js');
 });
