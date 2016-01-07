@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../vendor/autoload.php';
 
-// Dotenv::load(__DIR__.'/../');
+//Dotenv::load(__DIR__.'/../');
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +19,10 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-// $app->withFacades();
+//$app->withFacades();
+//$app->configure('jwt');
 
-// $app->withEloquent();
+//$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -36,12 +37,12 @@ $app = new Laravel\Lumen\Application(
 
 $app->singleton(
     Illuminate\Contracts\Debug\ExceptionHandler::class,
-    App\Exceptions\Handler::class
+    Begin\Exceptions\Handler::class
 );
 
 $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
-    App\Console\Kernel::class
+    Begin\Console\Kernel::class
 );
 
 /*
@@ -64,7 +65,8 @@ $app->singleton(
 // ]);
 
 // $app->routeMiddleware([
-
+//     'jwt.auth'    => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+//     'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
 // ]);
 
 /*
@@ -78,8 +80,8 @@ $app->singleton(
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
-// $app->register(App\Providers\EventServiceProvider::class);
+//$app->register(Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class);
+// $app->register(Begin\Providers\EventServiceProvider::class);
 
 /*
 |--------------------------------------------------------------------------
@@ -92,7 +94,7 @@ $app->singleton(
 |
 */
 
-$app->group(['namespace' => 'App\Http\Controllers'], function ($app) {
+$app->group(['namespace' => 'Begin\Http\Controllers'], function ($app) {
     require __DIR__.'/../app/Http/routes.php';
 });
 
