@@ -22,7 +22,7 @@ $app = new Laravel\Lumen\Application(
 $app->withFacades();
 $app->configure('jwt');
 
-//$app->withEloquent();
+$app->withEloquent();
 
 /*
 |--------------------------------------------------------------------------
@@ -64,10 +64,10 @@ $app->singleton(
 //     // Laravel\Lumen\Http\Middleware\VerifyCsrfToken::class,
 // ]);
 
-// $app->routeMiddleware([
-//     'jwt.auth'    => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
-//     'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
-// ]);
+$app->routeMiddleware([
+    'jwt.auth'    => Tymon\JWTAuth\Middleware\GetUserFromToken::class,
+    //'jwt.refresh' => Tymon\JWTAuth\Middleware\RefreshToken::class,
+]);
 
 /*
 |--------------------------------------------------------------------------
