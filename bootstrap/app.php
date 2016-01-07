@@ -19,8 +19,8 @@ $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
 
-//$app->withFacades();
-//$app->configure('jwt');
+$app->withFacades();
+$app->configure('jwt');
 
 //$app->withEloquent();
 
