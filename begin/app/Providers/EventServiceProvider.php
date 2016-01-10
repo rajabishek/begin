@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Begin\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'Begin\Events\SomeEvent' => [
+            'Begin\Listeners\EventListener',
         ],
     ];
 
@@ -28,6 +28,19 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+        $this->app['events']->listen('tymon.jwt.expired', function()
+        {
+            return response()->json(['success' => false,'errors' => ['Your token has expired']], 401);
+        });
+
+        $this->app['events']->listen('tymon.jwt.invalid', function()
+        {
+            return response()->json(['success' => false,'errors' => ['Your token is invalid']], 400);
+        });
+
+        $this->app['events']->listen('tymon.jwt.absent', function()
+        {
+            return response()->json(['success' => false,'errors' => ['Please provide a token']],400);
+        });
     }
 }
