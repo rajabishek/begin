@@ -11,16 +11,18 @@
 |
 */
 
-Route::group(['namespace' => 'Begin\Http\Controllers\Api\v1','prefix' => 'api/v1'], function ($app)
-{
-	Route::post('register','AuthController@postRegister');
-	Route::post('login','AuthController@postLogin');
+Route::group(['namespace' => 'Api\v1','prefix' => 'api/v1'], function ($app)
+{	
+	Route::group(['namespace' => 'Auth'], function ($app)
+	{
+		Route::post('register','AuthController@postRegister');
+		Route::post('login','AuthController@postLogin');
+		Route::get('user', 'AuthController@getUser');
+		Route::get('token/validate', 'AuthController@validateToken');
+	});
+
+	Route::get('tasks/pending', 'TasksController@getPending');
+	Route::get('tasks/completed', 'TasksController@getCompleted');
+	Route::resource('tasks', 'TasksController',['only' => ['index','store','show','update','destroy']]);
 });
 
-Route::group(['namespace' => 'Begin\Http\Controllers\Api\v1',
-			 'prefix' => 'api/v1', 'middleware' => 'jwt.auth'], function ($app)
-{	
-	Route::get('validate_token', 'AuthController@validateToken');
-	Route::get('tasks', 'TasksController@index');
-	Route::get('tasks/{task}', 'TasksController@show');
-});
