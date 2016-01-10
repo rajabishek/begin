@@ -31,7 +31,7 @@ elixir(function(mix) {
         paths.spinkit + 'css/spinkit.css',
     ], 'public/css/app.css', './');
 
-    mix.copy(paths.bootswatch + 'fonts/**', 'public/fonts');
+    mix.copy(paths.bootstrap + 'fonts/**', 'public/fonts');
     mix.copy(paths.fontAwesome + 'fonts/**', 'public/fonts');
     
     mix.scripts([paths.jquery + 'dist/jquery.min.js', paths.bootstrap + 'dist/js/bootstrap.min.js']);
