@@ -14,6 +14,7 @@ var elixir = require('laravel-elixir');
 require('laravel-elixir-vueify');
 
 var paths = {
+    'fontAwesome': './node_modules/font-awesome/',
 	'bootstrap': './node_modules/bootstrap/',
     'bootswatch': './node_modules/bootswatch/',
     'jquery': './node_modules/jquery/',
@@ -25,11 +26,13 @@ elixir(function(mix) {
     mix.sass('app.scss');
 
 	mix.styles([
+        paths.fontAwesome + 'css/font-awesome.min.css',
         paths.bootswatch + 'flatly/bootstrap.min.css',
         paths.spinkit + 'css/spinkit.css',
     ], 'public/css/app.css', './');
 
     mix.copy(paths.bootswatch + 'fonts/**', 'public/fonts');
+    mix.copy(paths.fontAwesome + 'fonts/**', 'public/fonts');
     
     mix.scripts([paths.jquery + 'dist/jquery.min.js', paths.bootstrap + 'dist/js/bootstrap.min.js']);
     
