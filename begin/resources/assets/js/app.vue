@@ -10,7 +10,6 @@ module.exports = {
 
     ready: function() {
 
-        //The app has just been initialized, check if we can get the user data with an already existing token
         var token = localStorage.getItem('jwt-token')
         if (token !== null && token !== 'undefined') {
             var that = this
@@ -48,7 +47,7 @@ module.exports = {
     methods: {
 
         saveUserDetails: function(user) {
-            // Save login info in our data and set header in case it's not set already
+            
             this.user = user;
             this.authenticated = true;
             this.token = localStorage.getItem('jwt-token');
@@ -62,7 +61,7 @@ module.exports = {
             localStorage.removeItem('jwt-token');
             
             if(this.$route.auth) 
-                this.$route.router.go('/auth/login');
+                this.$router.go('/auth/login');
         }
     }
 
