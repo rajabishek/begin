@@ -62,6 +62,20 @@ class ApiController extends Controller
     }
 
     /**
+     * Respond in json with the given data.
+     *
+     * @param  array  $errors
+     * @return \Illuminate\Http\Response
+     */
+    public function respondWithSuccess($data = null)
+    {
+        if(is_null($data))
+            return $this->respond(['success' => true]);
+
+        return $this->respond(['success' => true,'data' => $data]);
+    }
+
+    /**
      * Respond in json with the given error.
      *
      * @param  array  $errors
@@ -107,6 +121,18 @@ class ApiController extends Controller
     public function respondBadRequest($errors)
     {
         return $this->setStatusCode(IlluminateResponse::HTTP_BAD_REQUEST)
+                    ->respondWithError($errors);
+    }
+
+    /**
+     * Respond in json indicating failure in valiudating the input.
+     *
+     * @param  array  $errors
+     * @return \Illuminate\Http\Response
+     */
+    public function respondUnprocessableEntity($errors)
+    {
+        return $this->setStatusCode(IlluminateResponse::HTTP_UNPROCESSABLE_ENTITY)
                     ->respondWithError($errors);
     }
 

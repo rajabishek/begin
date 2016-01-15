@@ -2,30 +2,27 @@
 
 /*
 |--------------------------------------------------------------------------
-| Application Routes
+| Routes File
 |--------------------------------------------------------------------------
 |
-| Here is where you can register all of the routes for an application.
-| It is a breeze. Simply tell Lumen the URIs it should respond to
-| and give it the Closure to call when that URI is requested.
+| Here is where you will register all of the routes in an application.
+| It's a breeze. Simply tell Laravel the URIs it should respond to
+| and give it the controller to call when that URI is requested.
 |
 */
 
-$app->group(['namespace' => 'Begin\Http\Controllers\Api\v1','prefix' => 'api/v1'], function ($app)
-{
-	$app->post('register','AuthController@postRegister');
-	$app->post('login','AuthController@postLogin');
-});
-
-$app->group(['namespace' => 'Begin\Http\Controllers\Api\v1',
-			 'prefix' => 'api/v1', 'middleware' => 'jwt.auth'], function ($app)
+Route::group(['namespace' => 'Api\v1','prefix' => 'api/v1'], function ($app)
 {	
-	$app->get('validate_token', 'AuthController@validateToken');
-	$app->get('tasks', 'TasksController@index');
-	$app->get('tasks/{task}', 'TasksController@show');
+	Route::group(['namespace' => 'Auth'], function ($app)
+	{
+		Route::post('register','AuthController@postRegister');
+		Route::post('login','AuthController@postLogin');
+		Route::get('user', 'AuthController@getUser');
+		Route::get('token/validate', 'AuthController@validateToken');
+	});
+
+	Route::get('tasks/pending', 'TasksController@getPending');
+	Route::get('tasks/completed', 'TasksController@getCompleted');
+	Route::resource('tasks', 'TasksController',['only' => ['index','store','show','update','destroy']]);
 });
-
-
-
-
 

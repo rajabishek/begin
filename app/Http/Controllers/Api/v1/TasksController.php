@@ -2,29 +2,22 @@
 
 namespace Begin\Http\Controllers\Api\v1;
 
-use Begin\Transformers\TaskTransformer;
 use Illuminate\Http\Request;
-use League\Fractal\Manager;
-use League\Fractal\Resource\Collection;
-use League\Fractal\Resource\Item;
-use Begin\Http\Controllers\ApiController;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Begin\Transformers\TaskTransformer;
+use Begin\Http\Controllers\ApiController;
+use Begin\Repositories\TaskRepositoryInterface;
+use Begin\Exceptions\ValidationException;
+use Begin\Exceptions\TaskNotFoundException;
 
 class TasksController extends ApiController 
 {
     /**
-     * Authenticated user.
+     * Task repository.
      *
-     * @var \Begin\User
+     * @var \Begin\Repositories\TaskRepositoryInterface
      */
-    protected $user;
-
-    /**
-     * Fractal manager to create the data.
-     *
-     * @var \League\Fractal\Manager
-     */
-    protected $fractal;
+    protected $tasks;
 
     /**
      * Task transformer.
@@ -37,13 +30,16 @@ class TasksController extends ApiController
      * Create a new TasksController instance.
      *
      * @param \Begin\Task $task
-     * @param \League\Fractal\Manager $fractal
+     * @param \Begin\Repositories\TaskRepositoryInterface $tasks
      * @param \Begin\Transformers\TaskTransformer $taskTransformer
      * @return void
      */
-    function __construct(Manager $fractal, TaskTransformer $taskTransformer)
+    function __construct(TaskRepositoryInterface $tasks, TaskTransformer $taskTransformer)
     {
-        $this->fractal = $fractal;
+        
+        $this->middleware('jwt.auth');
+
+        $this->tasks = $tasks;
         $this->taskTransformer = $taskTransformer;
     }
 
@@ -58,35 +54,184 @@ class TasksController extends ApiController
     }
 
     /**
-     * Get the list of all tasks.
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        try
+        {
+            $this->validate($request, [
+                'title' => 'required|max:255', 
+                'description' => 'required',
+            ]);
+
+            $data = $request->only('title','description');
+            $user = $this->getAuthenticatedUser();
+            $task = $this->tasks->create($user, $data);
+
+            return $this->respondWithSuccess($this->taskTransformer->transform($task->toArray()));
+        }
+        catch(ValidationException $e)
+        {
+            return $this->respondUnprocessableEntity($e->getErrors()->all());
+        }
+        catch(Exception $e)
+        {
+            return $this->respondInternalError();
+        }
+    }
+
+    /**
+     * Get the list of all pending tasks.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $tasks = $this->getAuthenticatedUser()->tasks()->all();
+        try
+        {
+            $user = $this->getAuthenticatedUser();
+            $tasks = $this->tasks->findAllForUser($user);
 
-        $collection = new Collection($tasks, $this->taskTransformer);
-
-        $data = $this->fractal->createData($collection)->toArray();
-
-        return $this->respond($data);
+            return $this->respondWithSuccess($this->taskTransformer->transformCollection($tasks->toArray()));
+        }
+        catch(Exception $e)
+        {
+            return $this->respondInternalError();
+        }
     }
 
     /**
-     * Get the specific task from the database.
+     * Get the list of all pending tasks.
      *
-     * @param integer $id
+     * @return \Illuminate\Http\Response
+     */
+    public function getPending()
+    {
+        try
+        {
+            $user = $this->getAuthenticatedUser();
+            $tasks = $this->tasks->findAllPendingForUser($user);
+
+            return $this->respondWithSuccess($this->taskTransformer->transformCollection($tasks->toArray()));
+        }
+        catch(Exception $e)
+        {
+            return $this->respondInternalError();
+        }
+    }
+
+    /**
+     * Get the list of all pending tasks.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCompleted()
+    {
+        try
+        {
+            $user = $this->getAuthenticatedUser();
+            $tasks = $this->tasks->findAllCompletedForUser($user);
+
+            return $this->respondWithSuccess($this->taskTransformer->transformCollection($tasks->toArray()));
+        }
+        catch(Exception $e)
+        {
+            return $this->respondInternalError();
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        $task = $this->getAuthenticatedUser()->tasks()->findOrFail($id);
+        try
+        {
+            $user = $this->getAuthenticatedUser();
+            $task = $this->tasks->findByIdForUser($id, $user);
+            
+            return $this->respondWithSuccess($this->taskTransformer->transform($task->toArray()));
+        }
+        catch(TaskNotFoundException $e)
+        {
+            return $this->respondNotFound($e->getMessage());
+        }
+        catch(Exception $e)
+        {
+            return $this->respondInternalError();
+        }
+    }
 
-        $item = new Item($task, $this->taskTransformer);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        try
+        {
+            $this->validate($request, [
+                'title' => 'required|max:255', 
+                'description' => 'required|max:255', 
+                'completed' => 'boolean',
+            ]);
 
-        $data = $this->fractal->createData($item)->toArray();
+            $data = $request->only('title','description','completed');
+            $user = $this->getAuthenticatedUser();
+            
+            $task = $this->tasks->findByIdForUser($id, $user);
+            $task = $this->tasks->edit($task, $data);
+            
+            return $this->respondWithSuccess($this->taskTransformer->transform($task->toArray()));
+        }
+        catch(ValidationException $e)
+        {
+            return $this->respondUnprocessableEntity($e->getErrors()->all());
+        }
+        catch(TaskNotFoundException $e)
+        {
+            return $this->respondNotFound($e->getMessage());
+        }
+        catch(Exception $e)
+        {
+            return $this->respondInternalError();
+        }
+    }
 
-        return $this->respond($data);
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        try
+        {
+            $user = $this->getAuthenticatedUser();
+            
+            $task = $this->tasks->findByIdForUser($id, $user);
+            $task->delete();
+            
+            return $this->respondWithSuccess($this->taskTransformer->transform($task->toArray()));
+        }
+        catch(TaskNotFoundException $e)
+        {
+            return $this->respondNotFound($e->getMessage());
+        }
+        catch(Exception $e)
+        {
+            return $this->respondInternalError();
+        }
     }
 }

@@ -1,19 +1,52 @@
 <?php
 
-namespace Begin\Http\Controllers\Api\v1;
+namespace Begin\Http\Controllers\Api\v1\Auth;
 
 use Exception;
 use Begin\User;
-use Begin\Http\Controllers\ApiController;
-use Begin\Exceptions\ValidationException;
+use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Http\Exception\HttpResponseException;
+use Begin\Http\Controllers\ApiController;
+use Begin\Exceptions\ValidationException;
+use Begin\Repositories\UserRepositoryInterface;
+use Begin\Transformers\UserTransformer;
 
 class AuthController extends ApiController
 {
+    /**
+     * User repository.
+     *
+     * @var \Begin\Repositories\UserRepositoryInterface
+     */
+    protected $users;
+
+    /**
+     * Create a new AuthController instance.
+     *
+     * @param \Begin\Repositories\UserRepositoryInterface $tasks
+     * @return void
+     */
+    function __construct(UserRepositoryInterface $users)
+    {
+        $this->middleware('jwt.auth', ['only' => ['validateToken','getUser']]);
+
+        $this->users = $users;
+    }
+
+    /**
+     * Get the authenticated user.
+     *
+     * @param \Begin\Transformers\UserTransformer $userTransformer
+     * @return \Illuminate\Http\Response
+     */
+    public function getUser(UserTransformer $userTransformer)
+    {
+        $user = JWTAuth::parseToken()->authenticate();
+
+        return $this->respondWithSuccess($userTransformer->transform($user->toArray()));
+    }
+
     /**
      * Handle a login request to the application.
      *
@@ -34,11 +67,11 @@ class AuthController extends ApiController
             if (!$token = JWTAuth::attempt($credentials))
                     return $this->respondUnauthorizedRequest($this->getFailedLoginMessage());
     
-            return $this->respond(['success' => true, 'token' => $token]);
+            return $this->respondWithSuccess(compact('token'));
         }
         catch(ValidationException $e)
         {
-            return $this->respondBadRequest($e->getErrors()->all());
+            return $this->respondUnprocessableEntity($e->getErrors()->all());
         }
         catch (JWTException $e)
         {
@@ -68,7 +101,7 @@ class AuthController extends ApiController
     public function validateToken() 
     {
         // jwt.refresh should have already authenticated this token
-        return $this->respond(['sucess' => true]);
+        return $this->respondWithSuccess();
     }
 
     /**
@@ -82,23 +115,20 @@ class AuthController extends ApiController
         try
         {
             $this->validate($request, [
-                'name' => 'required|max:255',
+                'email' => 'required|max:255',
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|confirmed|min:4',
             ]);
 
-            $user = User::create([
-                'name' => $request->get('name'),
-                'email' => $request->get('email'),
-                'password' => bcrypt($request->get('password')),
-            ]);
+            $data = $request->only('name','email','password');
+            $user = $this->users->create($data);
             
             $token = JWTAuth::fromUser($user);
-            return $this->respond(['success' => true, 'token' => $token]);
+            return $this->respondWithSuccess(compact('token'));
         }
         catch(ValidationException $e)
         {
-            return $this->respondBadRequest($e->getErrors()->all());
+            return $this->respondUnprocessableEntity($e->getErrors()->all());
         }
         catch(Exception $e)
         {
