@@ -3,16 +3,22 @@
 namespace Begin\Transformers;
 
 use Begin\Task;
-use League\Fractal\TransformerAbstract;
 
-class TaskTransformer extends TransformerAbstract 
+class TaskTransformer extends Transformer 
 {
-    public function transform(Task $task)
+    /**
+     * Transform the given task
+     *
+     * @param array $task
+     * @return array
+     */
+    public function transform($task)
     {
         return [
-            'id'           => $task->id,
-            'title'         => $task->title,
-            'description'  => $task->description,
+            'id' => intval($task['id']),
+            'title' => $task['title'],
+            'description' => $task['description'],
+            'completed' => isset($task['completed']) ? (bool)$task['completed'] : false,
         ];
     }
 }
