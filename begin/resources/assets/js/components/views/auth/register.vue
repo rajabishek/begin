@@ -83,7 +83,7 @@ module.exports = {
             this.$http.get('/api/v1/user').then(function(response) {
                 that.$dispatch('saveUserDetails', response.data.data);
                 that.loading = false;
-                that.$route.router.go('/profile');
+                that.$router.go('/profile');
             }, function(response) {
                 that.loading = false;
                 this.displayErrorMessagesFromResponse(response);
