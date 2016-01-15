@@ -18,5 +18,15 @@ class Task extends Model
      *
      * @var array
      */
-    protected $fillable = ['title', 'description'];
+    protected $fillable = ['title', 'description','completed'];
+
+    /**
+     * Get the user who created the task.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo 
+     */
+    public function user()
+    {
+        return $this->belongsTo('Begin\User');
+    }
 }

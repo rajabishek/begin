@@ -1,0 +1,14 @@
+{
+  "name": "begin",
+  "description": "Simple task manager application",
+  "main": "index.html",
+  "authors": [
+    "Raj Abishek <rajabishek@hotmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/rajabishek/begin",
+  "moduleType": [],
+  "dependencies": {
+    "bootstrap-theme-bootswatch-flatly": "~1.0.2"
+  }
+}
