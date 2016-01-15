@@ -12,6 +12,7 @@ var footerComponent = require('./partials/footer.vue');
 module.exports = {
 	
 	registerAllGlobalComponents: function() {
+		
 		Vue.component('modal', modalComponent);
 		Vue.component('alert', alertComponent);
 		Vue.component('alert-messages', alertMessagesComponent);
