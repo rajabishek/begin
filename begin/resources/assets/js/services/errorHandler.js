@@ -1,5 +1,7 @@
+
 module.exports = {
-	handleFailedResponse: function(response, component) {
+	
+    handleFailedResponse: function(response, component) {
         if (response.data.success === false && response.status) {
             status = response.status;
             if(status == 422 || status == 404){
