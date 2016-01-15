@@ -48,12 +48,12 @@ module.exports = function(router) {
         }
     })
 
-    router.alias({
+    .alias({
         '': '/home',
         '/auth': '/auth/login'
     })
 
-    router.beforeEach(function(transition) {
+    .beforeEach(function(transition) {
 
         var token = localStorage.getItem('jwt-token')
         if (transition.to.auth) {
@@ -67,5 +67,5 @@ module.exports = function(router) {
             }
         }
         transition.next()
-    })
+    });
 }
