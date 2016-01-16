@@ -70,7 +70,7 @@ module.exports = {
         registerUser: function(e) {
             this.loading = true;
             var that = this;
-            this.$http.post('/api/v1/register', this.user).then(function(response) {
+            this.$http.post('register', this.user).then(function(response) {
                 that.getUserData();
             }, function(response) {
                 that.loading = false;
@@ -80,7 +80,7 @@ module.exports = {
 
         getUserData: function() {
             var that = this;
-            this.$http.get('/api/v1/user').then(function(response) {
+            this.$http.get('user').then(function(response) {
                 that.$dispatch('saveUserDetails', response.data.data);
                 that.loading = false;
                 that.$router.go('/profile');
