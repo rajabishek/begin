@@ -55,7 +55,7 @@ module.exports = {
     events: {
         modalWasApproved: function() {
             this.deleteTask(this.task);
-            this.$router.go('/tasks');
+            this.$router.go('tasks');
         }    
     },
 
@@ -63,7 +63,7 @@ module.exports = {
         
         fetch: function(id, successHandler) {
             var that = this;
-            this.$http.get('/api/v1/tasks/' + id).then(function(response) {
+            this.$http.get('tasks/' + id).then(function(response) {
                 that.task = response.data.data;
                 successHandler(response.data.data);
             }, function(response) {
@@ -73,7 +73,7 @@ module.exports = {
 
         updateTask: function() {
             var that = this;
-            this.$http.put('/api/v1/tasks/' + this.task.id, this.task).then(function(response) {
+            this.$http.put('tasks/' + this.task.id, this.task).then(function(response) {
                 that.messages = [ {type: 'success', message: 'Task was updated successfully.' }];
             }, function(response) {
                 errorHandler.handleFailedResponse(response, this);
@@ -82,9 +82,10 @@ module.exports = {
 
         deleteTask: function() {
             var that = this;
-            this.$http.delete('/api/v1/tasks/' + this.task.id).then(function(response) {
+            this.$http.delete('tasks/' + this.task.id).then(function(response) {
                 that.messages = [{ type: 'success', message: 'Task has been removed successfully.'}];
-                this.task = null;
+                that.$dispatch('taskWasDeleted',that.task);
+                that.task = null;
             }, function(response) {
                 errorHandler.handleFailedResponse(response, this);
             });
