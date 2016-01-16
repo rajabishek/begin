@@ -1,5 +1,9 @@
 module.exports = function(Vue) {
 
+    //Set the base url for accessing the API
+    Vue.http.options.root = '/api/v1';
+
+    //Define the logic for pre and postprocessing of a request.
     Vue.http.interceptors.push({
 
         request: function (request) {
