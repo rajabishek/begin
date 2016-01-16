@@ -1,14 +1,14 @@
 <template>
     <div class="row">
-        <div class="row" v-show="!tasksEmpty">
+        <div class="row">
             <div class="col-sm-6">
-                <task-list type="pending" heading="Pending Tasks"></task-list>  
+                <task-list type="pending" heading="Pending Tasks" :tasks.sync="pendingTasks"></task-list>  
             </div>
             <div class="col-sm-6">
-                <task-list type="completed" heading="Completed Tasks"></task-list>
+                <task-list type="completed" heading="Completed Tasks" :tasks.sync="completedTasks"></task-list>
             </div>
         </div>
-        <alert :dismissable="false" type="danger" v-else>There are no tasks to show.</alert>
+        <alert :dismissable="false" type="danger" v-if="showTasksEmpty">There are no tasks to show.</alert>
     </div>
 </template>
 
@@ -19,20 +19,19 @@ var taskListComponent = require('./list.vue');
 module.exports = {
 
     data: function() {
+        
         return {
-            tasks: [],
-            pendingTasksCount: 100, //Just to fake initially to prevent error message from showing
-            completedTasksCount: 100
+            pendingTasks: [],
+            completedTasks: [],
+            dataLoaded: { pending: false, completed: false },
+            showTasksEmpty: false
         }
     },
 
     computed: {
+        
         totalTasksCount: function() {
-            return this.pendingTasksCount + this.completedTasksCount;
-        },
-
-        tasksEmpty: function() {
-            return this.totalTasksCount == 0;
+            return this.pendingTasks.length + this.completedTasks.length;
         }
     },
 
@@ -41,17 +40,22 @@ module.exports = {
     },
 
     events: {
-        
+
         taskCompletionStatusWasToggled: function(task) {
             this.$broadcast('taskCompletionStatusWasToggled', task);
         },
 
-        tasksCountChanged: function(task) {
-            if(task.type === 'pending')
-                this.pendingTasksCount = task.count;
-            else if(task.type === 'completed')
-                this.completedTasksCount = task.count;
+        taskWasDeleted: function(task) {
+            this.$broadcast('taskWasDeleted', task);
         },
+
+        dataLoaded: function(type){
+            
+            this.dataLoaded[type] = true;
+            
+            if(this.dataLoaded['completed'] === true && this.dataLoaded['pending'] === true)
+                this.showTasksEmpty = this.totalTasksCount === 0
+        }
     }
 }
 </script>
