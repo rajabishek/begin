@@ -68,6 +68,11 @@ module.exports = {
 </script>
 
 <style type="text/css">
+.navbar
+{
+    z-index: 1;
+}
+
 .navbar-login
 {
     width: 305px;
