@@ -49,7 +49,7 @@ module.exports = {
         createTask: function() {
             this.loading = true;
             var that = this;
-            this.$http.post('/api/v1/tasks', this.task).then(function(response) {
+            this.$http.post('tasks', this.task).then(function(response) {
                 that.task.title = '';
                 that.task.description = '';
                 that.messages = [ {type: 'success', message: 'Task created successfully.' }];
