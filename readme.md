@@ -1,6 +1,6 @@
 ## Begin
 
-**Begin** is a simple web-based task manager written in [Vue](http://vuejs.org/) at the client side and [Laravel](http://laravel.com/) on server side. Targetting web developers, Begin embraces some of the more modern web technologies to do its job.
+**Begin** is a simple web-based task manager written in [Vue](http://vuejs.org/)v1.0.14 at the client side and [Laravel](http://laravel.com/)v5.2.10 on server side. Targetting web developers, Begin embraces some of the more modern web technologies to do its job.
 
 
 ## Official Documentation
