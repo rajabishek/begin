@@ -50,7 +50,12 @@ module.exports = {
 			validator: function (value) {
 		    	return value === 'pending' || value === 'completed';
 		    }
-		}
+		},
+        tasks: {
+            type: Array,
+            required: true,
+            twoWay: true
+        }
 	},
 
 	ready: function() {
@@ -59,7 +64,6 @@ module.exports = {
     
     data: function() {
         return {
-        	tasks: [],
             message: { type: '', message: ''},
             showMessage: false,
             currentTask: null,
@@ -79,12 +83,13 @@ module.exports = {
             	this.tasks.push(task);
             else if(task.completed === false && this.type === 'pending')
             	this.tasks.push(task);
-        }
-    },
+        },
 
-    watch: {
-        tasks: function(newValue, oldValue) {
-            this.$dispatch('tasksCountChanged', { type: this.type, count: newValue.length});
+        taskWasDeleted: function(task) {
+            if(task.completed === true && this.type === 'completed')
+                this.tasks.$remove(task);
+            else if(task.completed === false && this.type === 'pending')
+                this.tasks.$remove(task);
         }
     },
 
@@ -97,12 +102,10 @@ module.exports = {
     	fetch: function() {
             var that = this;
             this.loading = true;
-            this.$http.get('/api/v1/tasks/' + this.type).then(function(response) {
+            this.$http.get('tasks/' + this.type).then(function(response) {
                 that.loading = false;
                 that.tasks = response.data.data;
-                if(typeof this.tasks === 'undefined' || !this.tasks.length) {
-                    that.showMessage = true;
-                }
+                that.$dispatch('dataLoaded', this.type);
             }, function(response) {
                 that.loading = false;
                 errorHandler.handleFailedResponse(response, this);
@@ -111,7 +114,7 @@ module.exports = {
         
         deleteTask: function(task) {
             var that = this;
-            this.$http.delete('/api/v1/tasks/' + task.id).then(function(response) {
+            this.$http.delete('tasks/' + task.id).then(function(response) {
                 that.tasks.$remove(task);
                 that.message = { type: 'success', message: 'Task has been removed.'};
                 that.showMessage = true;
@@ -123,7 +126,7 @@ module.exports = {
         toggleCompletion: function(task) {
         	var that = this;
         	task.completed = !task.completed;
-            this.$http.put('/api/v1/tasks/' + task.id, task).then(function(response) {
+            this.$http.put('tasks/' + task.id, task).then(function(response) {
                 that.message = {type: 'success', message: 'Completion status was changed.' };
                 that.showMessage = true;
                 that.tasks.$remove(task);
