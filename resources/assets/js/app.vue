@@ -13,7 +13,7 @@ module.exports = {
         var token = localStorage.getItem('jwt-token')
         if (token !== null && token !== 'undefined') {
             var that = this
-            this.$http.get('/api/v1/user').then(function(response) {
+            this.$http.get('user').then(function(response) {
                 that.saveUserDetails(response.data.data);
             }, function(response) {
                 that.clearUserDetails();
