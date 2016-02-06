@@ -27,6 +27,6 @@
     "vue-strap": "^1.0.3"
   },
   "scripts": {
-    "postinstall": "gulp --production"
+    "postinstall": "./node_modules/.bin/gulp --production"
   }
 }
