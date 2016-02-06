@@ -2,7 +2,7 @@
 
 namespace Begin\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 use Begin\Repositories\UserRepositoryInterface;
 use Begin\Repositories\Eloquent\UserRepository;
 use Begin\Repositories\TaskRepositoryInterface;

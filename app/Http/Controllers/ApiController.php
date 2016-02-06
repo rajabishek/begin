@@ -2,11 +2,12 @@
 
 namespace Begin\Http\Controllers;
 
-use Illuminate\Http\Response as IlluminateResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response as IlluminateResponse;
+use Laravel\Lumen\Routing\Controller as BaseController;
 use Begin\Exceptions\ValidationException;
 
-class ApiController extends Controller 
+class ApiController extends BaseController 
 {
     /**
      * Default to status code of 200.

@@ -2,27 +2,31 @@
 
 /*
 |--------------------------------------------------------------------------
-| Routes File
+| Application Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you will register all of the routes in an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
+| Here is where you can register all of the routes for an application.
+| It is a breeze. Simply tell Lumen the URIs it should respond to
+| and give it the Closure to call when that URI is requested.
 |
 */
 
-Route::group(['namespace' => 'Api\v1','prefix' => 'api/v1'], function ($app)
-{	
-	Route::group(['namespace' => 'Auth'], function ($app)
-	{
-		Route::post('register','AuthController@postRegister');
-		Route::post('login','AuthController@postLogin');
-		Route::get('user', 'AuthController@getUser');
-		Route::get('token/validate', 'AuthController@validateToken');
-	});
-
-	Route::get('tasks/pending', 'TasksController@getPending');
-	Route::get('tasks/completed', 'TasksController@getCompleted');
-	Route::resource('tasks', 'TasksController',['only' => ['index','store','show','update','destroy']]);
+$app->group(['namespace' => 'Begin\Http\Controllers\Api\v1\Auth','prefix' => 'api/v1'], function () use($app) {
+		
+	$app->post('register','AuthController@postRegister');
+	$app->post('login','AuthController@postLogin');
+	
+	$app->get('user', 'AuthController@getUser');
+	$app->get('token/validate', 'AuthController@validateToken');
 });
 
+$app->group(['namespace' => 'Begin\Http\Controllers\Api\v1','prefix' => 'api/v1'], function () use ($app) {	
+	
+	$app->get('tasks/pending', 'TasksController@getPending');
+	$app->get('tasks/completed', 'TasksController@getCompleted');
+	$app->get('tasks', 'TasksController@index');
+	$app->post('tasks', 'TasksController@store');
+	$app->get('tasks/{id}', 'TasksController@show');
+	$app->put('tasks/{id}', 'TasksController@update');
+	$app->delete('tasks/{id}', 'TasksController@destroy');
+});

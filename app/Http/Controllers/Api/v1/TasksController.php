@@ -3,12 +3,13 @@
 namespace Begin\Http\Controllers\Api\v1;
 
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Auth;
 use Begin\Transformers\TaskTransformer;
 use Begin\Http\Controllers\ApiController;
 use Begin\Repositories\TaskRepositoryInterface;
 use Begin\Exceptions\ValidationException;
 use Begin\Exceptions\TaskNotFoundException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class TasksController extends ApiController 
 {
@@ -37,7 +38,7 @@ class TasksController extends ApiController
     function __construct(TaskRepositoryInterface $tasks, TaskTransformer $taskTransformer)
     {
         
-        $this->middleware('jwt.auth');
+        $this->middleware('auth:api');
 
         $this->tasks = $tasks;
         $this->taskTransformer = $taskTransformer;
@@ -50,7 +51,7 @@ class TasksController extends ApiController
      */
     protected function getAuthenticatedUser()
     {
-        return JWTAuth::parseToken()->authenticate();
+        return Auth::user();
     }
 
     /**

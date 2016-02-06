@@ -5,12 +5,13 @@ namespace Begin\Http\Controllers\Api\v1\Auth;
 use Exception;
 use Begin\User;
 use Illuminate\Http\Request;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use Illuminate\Support\Facades\Auth;
+use Begin\Transformers\UserTransformer;
 use Begin\Http\Controllers\ApiController;
 use Begin\Exceptions\ValidationException;
+use Tymon\JWTAuth\Exceptions\JWTException;
 use Begin\Repositories\UserRepositoryInterface;
-use Begin\Transformers\UserTransformer;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 class AuthController extends ApiController
 {
@@ -29,7 +30,7 @@ class AuthController extends ApiController
      */
     function __construct(UserRepositoryInterface $users)
     {
-        $this->middleware('jwt.auth', ['only' => ['validateToken','getUser']]);
+        $this->middleware('auth:api', ['only' => ['validateToken','getUser']]);
 
         $this->users = $users;
     }
@@ -42,7 +43,7 @@ class AuthController extends ApiController
      */
     public function getUser(UserTransformer $userTransformer)
     {
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = Auth::user();
 
         return $this->respondWithSuccess($userTransformer->transform($user->toArray()));
     }
@@ -64,8 +65,8 @@ class AuthController extends ApiController
 
             $credentials = $request->only('email', 'password');
 
-            if (!$token = JWTAuth::attempt($credentials))
-                    return $this->respondUnauthorizedRequest($this->getFailedLoginMessage());
+            if (!$token = Auth::attempt($credentials))
+                return $this->respondUnauthorizedRequest($this->getFailedLoginMessage());
     
             return $this->respondWithSuccess(compact('token'));
         }
@@ -123,7 +124,7 @@ class AuthController extends ApiController
             $data = $request->only('name','email','password');
             $user = $this->users->create($data);
             
-            $token = JWTAuth::fromUser($user);
+            $token = Auth::generateTokenById($user->id);
             return $this->respondWithSuccess(compact('token'));
         }
         catch(ValidationException $e)
