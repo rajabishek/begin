@@ -1,4 +1,5 @@
 var elixir = require('laravel-elixir');
+var gulp = require('gulp');
 
 /*
  |--------------------------------------------------------------------------
@@ -38,3 +39,5 @@ elixir(function(mix) {
     
     mix.browserify('bootstrap.js', 'public/js/app.js');
 });
+
+gulp.task('heroku', ['default']);
