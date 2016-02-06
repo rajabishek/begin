@@ -40,4 +40,4 @@ elixir(function(mix) {
     mix.browserify('bootstrap.js', 'public/js/app.js');
 });
 
-gulp.task('heroku', ['default']);
+gulp.task('heroku:', ['default']);
