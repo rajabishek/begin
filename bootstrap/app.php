@@ -27,13 +27,6 @@ $app->withFacades();
 $app->configure('jwt');
 $app->withEloquent();
 
-/** This gives you finer control over the payloads you create if you require it.
- *  
- *  Source: https://github.com/tymondesigns/jwt-auth/wiki/Installation
- */
-class_alias(Tymon\JWTAuth\Facades\JWTAuth::class, 'JWTAuth');
-class_alias(Tymon\JWTAuth\Facades\JWTFactory::class, 'JWTFactory');
-
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
