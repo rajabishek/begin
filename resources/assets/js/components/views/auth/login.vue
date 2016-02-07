@@ -10,18 +10,12 @@
                 <fieldset>
                     <div class="form-group ">
                         <label for="email">Email</label>
-                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input class="form-control input-sm" v-model="user.email" name="email" type="text" id="email">
-                        </div>
+                        <input class="form-control input-sm" v-model="user.email" name="email" type="text" id="email">
                     </div>
-
+                    
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input class="form-control input-sm" v-model="user.password" name="password" type="password" value="" id="password">
-                        </div>
+                        <input class="form-control input-sm" v-model="user.password" name="password" type="password" value="" id="password">
                     </div>
                     <div class="form-group">
                         <loading-button type="info" size="sm" :loading="loading">Sign In</loading-button>

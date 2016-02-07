@@ -10,34 +10,22 @@
                 <fieldset>
                     <div class="form-group ">
                         <label for="name">Name</label>
-                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input class="form-control input-sm" v-model="user.name" name="name" type="text" id="name">
-                        </div>
+                        <input class="form-control input-sm" v-model="user.name" name="name" type="text" id="name">
                     </div>
 
                     <div class="form-group ">
                         <label for="email">Email</label>
-                         <div class="input-group input-group-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-                            <input class="form-control input-sm" v-model="user.email" name="email" type="text" id="email">
-                        </div>
+                        <input class="form-control input-sm" v-model="user.email" name="email" type="text" id="email">
                     </div>
 
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input class="form-control input-sm" v-model="user.password" name="password" type="password" value="" id="password">
-                        </div>
+                        <input class="form-control input-sm" v-model="user.password" name="password" type="password" value="" id="password">
                     </div>
 
                     <div class="form-group">
                         <label for="password">Confirm Password</label>
-                        <div class="input-group input-group-sm">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                            <input class="form-control input-sm" v-model="user.password_confirmation" name="password_confirmation" type="password" value="" id="password_confirmation">
-                        </div>
+                        <input class="form-control input-sm" v-model="user.password_confirmation" name="password_confirmation" type="password" value="" id="password_confirmation">
                     </div>
                     <div class="form-group">
                         <loading-button type="success" size="sm" :loading="loading">Sign Up</loading-button>
