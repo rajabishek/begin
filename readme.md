@@ -2,8 +2,10 @@
 Begin is a simple web-based task manager written in Vue at the client side and Lumen on server side. 
 
 This project is meant to bring together the Laravel and Vue community to assemble a complete SPA that is built by following some of the best practices followed in both the communities and is meant to serve as a reference for the developers starting to build a full blown SPA with Laravel and Vue.
-PRs are welcome to illustrate acceptance testing for the JWT api, using vuex with Vue etc...
+PRs are welcome to illustrate acceptance testing for the JWT api, using vuex with Vue, tests for Vue components etc...
 Anything that can help structure the application in a better way.
+
+If everyone from the community can contribute in some way to improve this application, within a few days we would have this as a good reference for this kickass combination.(Laravue)
 
 It uses vue-router and browserify to keep everyting nicely separated, and makes use of Laravel Elixir to avoid a huge Gulpfile (Laravel Elixir has nothing to do with the Laravel Framework, this package has no relation to that whatsoever).
 
@@ -48,6 +50,7 @@ MIT License. See LICENSE file.
 ## Credits
 Begin is built on the shoulder of the giants. My sincere thanks go to:
 * Evan You for the awesome Vue
-* Taylor Otwell and Graham Campbell for their work on the rocksolid Lumen
+* Taylor Otwell and Graham Campbell for their work on Laravel and Lumen
 * Jeffrey Way for Laravel Elixir and the amazing Vue series on Laracasts
+* Sean Tymon for the awesome JSON Web Token Authentication package for Laravel & Lumen
 * The authors of all JavaScript and PHP packages used in the project – I’ve literally got the best of both worlds.
