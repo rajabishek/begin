@@ -33,7 +33,7 @@ If you use Apache to serve this, you will need to add the following 2 lines to y
 ```
 RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
-
+```
 
 ## License
 MIT License. See LICENSE file.
