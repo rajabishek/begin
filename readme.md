@@ -34,11 +34,11 @@ If you use Apache to serve this, you will need to add the following 2 lines to y
 RewriteCond %{HTTP:Authorization} ^(.*)
 RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
 
+
 ## License
 MIT License. See LICENSE file.
 
 ## Credits
-
 Begin is built on the shoulder of the giants. My sincere thanks go to:
 * Evan You for the awesome Vue
 * Taylor Otwell and Graham Campbell for their work on the rocksolid Lumen
