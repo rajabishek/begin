@@ -15,5 +15,6 @@ $factory->define(Begin\User::class, function ($faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
+        'password' => $faker->word
     ];
 });
