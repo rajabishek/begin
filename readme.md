@@ -3,7 +3,7 @@ Begin is a simple web-based task manager written in Vue at the client side and L
 
 This project is meant to bring together the Laravel and Vue community to assemble a complete SPA that is built by following some of the best practices followed in both the communities and is meant to serve as a reference for the developers starting to build a full blown SPA with Laravel and Vue.
 PRs are welcome to illustrate acceptance testing for the JWT api, using vuex with Vue etc...
-Anything that can help structure the application in a better way is always welcome.
+Anything that can help structure the application in a better way.
 
 It uses vue-router and browserify to keep everyting nicely separated, and makes use of Laravel Elixir to avoid a huge Gulpfile (Laravel Elixir has nothing to do with the Laravel Framework, this package has no relation to that whatsoever).
 
