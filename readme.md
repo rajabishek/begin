@@ -1,4 +1,5 @@
 ## Begin - Simple Task Manager
+![Cover Image](image.png)
 Begin is a simple web-based task manager written in Vue at the client side and Lumen on server side. 
 
 This project is meant to bring together the Laravel and Vue community to assemble a complete SPA that is built by following some of the best practices followed in both the communities and is meant to serve as a reference for the developers starting to build a full blown SPA with Laravel and Vue.
