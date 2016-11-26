@@ -116,7 +116,7 @@ class AuthController extends ApiController
         try
         {
             $this->validate($request, [
-                'email' => 'required|max:255',
+                'name' => 'required|max:255',
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|confirmed|min:4',
             ]);
